@@ -1,0 +1,16 @@
+{
+  "name": "mediaklikk-live-proxy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/balazs4/mediaklikk-live-proxy.git",
+  "author": "balazs4 <balazs4web@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "micro index.js ${PORT}"
+  },
+  "dependencies": {
+    "debug": "^2.6.8",
+    "micro": "^7.3.3",
+    "phantom": "^4.0.3"
+  }
+}
