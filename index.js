@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
   log(`Result ${streamId} => ${url}`);
 
   res.writeHead(302, {
-    Location: url
+    Location: url.replace('index.m3u8', '02.m3u8')
   });
   res.end();
 };
