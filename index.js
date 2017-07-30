@@ -17,7 +17,7 @@ const getLink = async src => {
   log('Extracting content');
   const content = await page.property('content');
 
-  const [rawLink] = content.match(/(http:.*\.m3u8\?v=5)/g);
+  const [rawLink] = content.match(/(http:.*\.m3u8)/g);
   const link = rawLink.replace(/\\\//g, '/');
   log(`Found link ${link}`);
 
@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
   const streamId = req.url.split('/')[1];
   if (streamId === 'favicon.ico') return null;
   log(`Looking for '${streamId}'`);
-  const src = `http://player.mediaklikk.hu/player/player-inside-full3.php?userid=mtva&streamid=${streamId}&noflash=yes`;
+  const src = `http://player.mediaklikk.hu/player/player-inside-full3.php?userid=mtva&streamid=${streamId}`;
   const url = await getLink(src);
   log(`Result ${streamId} => ${url}`);
 
