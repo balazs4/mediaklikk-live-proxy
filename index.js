@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
   const streamId = req.url.split('/')[1];
   if (streamId === 'favicon.ico') return null;
   log(`Looking for '${streamId}'`);
-  const src = `http://player.mediaklikk.hu/playernew/player.php?video={streamId}`;
+  const src = `http://player.mediaklikk.hu/playernew/player.php?video=${streamId}`;
   const url = await getLink(src);
   log(`Result ${streamId} => ${url}`);
 
