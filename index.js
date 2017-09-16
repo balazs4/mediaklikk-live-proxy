@@ -16,13 +16,12 @@ const getLink = async src => {
 
   log('Extracting content');
   const content = await page.property('content');
-  const regex = /setup\((.*)\)/g;
-  const [_, setup] = regex.exec(content);
-  log(setup);
+  const regex = /"file": "([\s\S]*.m3u8)/g;
+  const [_, file] = regex.exec(content);
+  const uri = file.replace(/\\/g, '');
+  log(uri);
 
-  const { playlist = [] } = JSON.parse(setup);
-  const [{ file }] = playlist;
-  const link = `https:${file}`;
+  const link = `http:${uri}`;
   log(`Found link ${link}`);
 
   log('Closing phantom instance');
