@@ -6,8 +6,8 @@
   "author": "balazs4 <balazs4web@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "micro index.js ${PORT}",
-    "dev": "DEBUG=mediaklikk micro-dev index.js ${PORT}"
+    "start": "micro index.js -p ${PORT}",
+    "dev": "DEBUG=mediaklikk micro-dev index.js"
   },
   "dependencies": {
     "debug": "^2.6.8",
