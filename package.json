@@ -6,11 +6,15 @@
   "author": "balazs4 <balazs4web@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "micro index.js ${PORT}"
+    "start": "micro index.js ${PORT}",
+    "dev": "DEBUG=mediaklikk micro-dev index.js ${PORT}"
   },
   "dependencies": {
     "debug": "^2.6.8",
     "micro": "latest",
     "phantom": "^4.0.3"
+  },
+  "devDependencies": {
+    "micro-dev": "^1.2.3"
   }
 }
