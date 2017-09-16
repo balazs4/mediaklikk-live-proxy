@@ -6,7 +6,7 @@
   "author": "balazs4 <balazs4web@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "micro index.js -p ${PORT}",
+    "start": "micro index.js --port ${PORT} --host localhost",
     "dev": "DEBUG=mediaklikk micro-dev index.js"
   },
   "dependencies": {
