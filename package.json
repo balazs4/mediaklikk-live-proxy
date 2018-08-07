@@ -11,11 +11,11 @@
     "dev": "DEBUG=mediaklikk micro-dev index.js"
   },
   "dependencies": {
-    "debug": "^2.6.8",
-    "micro": "latest",
-    "phantom": "^4.0.3"
+    "debug": "^3.1.0",
+    "micro": "9.3.2",
+    "puppeteer": "^1.6.2"
   },
   "devDependencies": {
-    "micro-dev": "^1.2.3"
+    "micro-dev": "^3.0.0"
   }
 }
