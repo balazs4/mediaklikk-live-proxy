@@ -4,6 +4,7 @@ const puppeteer = require('puppeteer');
 const getLink = async src => {
   log('Creating chrome instance');
   const instance = await puppeteer.launch({
+    executablePath: '/usr/bin/chromium',
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
