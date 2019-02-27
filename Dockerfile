@@ -1,4 +1,4 @@
-FROM keymetrics/pm2:latest-alpine
+FROM node:alpine
 LABEL maintainer="balazs4web@gmail.com"
 RUN apk update && apk upgrade && \
     echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
