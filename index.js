@@ -1,11 +1,12 @@
 const log = require('debug')('mediaklikk');
 const puppeteer = require('puppeteer');
 
-const getLink = async src => {
+const getLink = async (src, streamId, headless) => {
   log('Creating chrome instance');
   const instance = await puppeteer.launch({
     executablePath: '/usr/bin/chromium',
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    defaultViewport: { width: 1600, height: 900 },
+    headless: true
   });
 
   log('Creating page object');
@@ -18,24 +19,20 @@ const getLink = async src => {
   });
 
   log(`Opening ${src}`);
-  await page.goto(src);
+  const headless = await page.evaluate(() => navigator.userAgent);
+  await page.setUserAgent(headless.replace('HeadlessChrome', 'Chrome'));
 
-  log('Extracting content');
-  const uri = await page.evaluate(() => {
-    const content = document.body.innerHTML;
-    const regex = /"file": "([\s\S]*.m3u8)/g;
-    const [_, file] = regex.exec(content);
-    const uri = file.replace(/\\/g, '');
-    return uri;
+  await page.setExtraHTTPHeaders({
+    'Accept-Language': 'en-US,en;q=0.9,de-DE;q=0.8,de;q=0.7,hu;q=0.6'
   });
-  log(uri);
-
-  const link = `http:${uri}`;
-  log(`Found link ${link}`);
+  await page.goto(src);
+  await new Promise(resolve => setTimeout(resolve, 5000));
+  log(`Screenshoting ${src}`);
+  await page.screenshot({ path: `${streamId}.png` });
 
   log('Closing chrome instance');
   await instance.close();
-  return link;
+  return null;
 };
 
 module.exports = async (req, res) => {
@@ -43,12 +40,7 @@ module.exports = async (req, res) => {
   if (streamId === 'favicon.ico') return null;
   log(`Looking for '${streamId}'`);
   const src = `http://player.mediaklikk.hu/playernew/player.php?video=${streamId}`;
-  const url = await getLink(src);
+  const url = await getLink(src, streamId, true);
   log(`Result ${streamId} => ${url}`);
-  const Location = url.replace(
-    'index.m3u8',
-    streamId === 'mtv4live' ? 'VID_854x480_HUN.m3u8' : '02.m3u8'
-  );
-  res.writeHead(302, { Location });
   res.end();
 };
